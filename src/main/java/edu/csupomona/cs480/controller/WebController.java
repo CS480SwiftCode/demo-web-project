@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
@@ -50,6 +52,16 @@ public class WebController {
 		// and run the application locally to check your changes
 		// with the URL: http://localhost:8080/
 		return "OK";
+	}
+	
+	@RequestMapping(value = "/cs480/currenttime", method = RequestMethod.GET)
+	String currentTime() {
+		Date now = new Date();
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, MMMM d, yyyy");
+	      return (dateFormatter.format(now));
+		// You can replace this with other string,
+		// and run the application locally to check your changes
+		// with the URL: http://localhost:8080/
 	}
 
 	/**
