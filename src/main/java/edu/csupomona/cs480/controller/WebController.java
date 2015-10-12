@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
@@ -38,7 +39,8 @@ public class WebController {
 	 */
 	@Autowired
 	private UserManager userManager;
-
+	@Autowired
+	private HttpServletRequest request;
 	/**
 	 * This is a simple example of how the HTTP API works.
 	 * It returns a String "OK" in the HTTP response.
@@ -68,6 +70,12 @@ public class WebController {
    String helloWorld() {
          return "Hello World";
    }
+	
+	@RequestMapping(value = "/cs480/usergent", method = RequestMethod.GET)
+	String getUserAgent()
+	{
+		return request.getHeader("User-Agent");
+	}
 	
 
 	/**
