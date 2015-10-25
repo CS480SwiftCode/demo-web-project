@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.apache.commons.math3.random.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +55,13 @@ public class WebController {
 		// and run the application locally to check your changes
 		// with the URL: http://localhost:8080/
 		return "OK";
+	}
+	
+	@RequestMapping(value = "/cs480/randomnumber", method = RequestMethod.GET)
+	String randomNum() {
+		RandomDataGenerator randomData = new RandomDataGenerator();
+		long value = randomData.nextLong(50, 230924);
+		return String.valueOf(value);
 	}
 	
 	@RequestMapping(value = "/cs480/currenttime", method = RequestMethod.GET)
