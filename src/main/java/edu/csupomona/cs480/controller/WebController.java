@@ -1,7 +1,9 @@
 package edu.csupomona.cs480.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,9 @@ import org.apache.commons.math3.random.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
+import org.jsoup.Jsoup;
+
+
 
 import edu.csupomona.cs480.App;
 import edu.csupomona.cs480.data.User;
@@ -75,8 +80,24 @@ public class WebController {
 	}
 	
 	@RequestMapping(value = "/cs480/helloworld", method = RequestMethod.GET)
-   String helloWorld() {
-         return "Hello World";
+   String helloWorld()
+   {
+      Document doc = null;
+      try
+      {
+        doc = Jsoup.connect("http://www.cpp.edu/").get();
+      } catch (IOException e)
+      {
+         e.printStackTrace();
+      }
+
+      String[] reviews = doc.select("*").toString().split("\n");
+
+      String toReturn = "";
+      for (String s : reviews)
+         toReturn += s;
+
+      return toReturn;
    }
 	
 	@RequestMapping(value = "/cs480/usergent", method = RequestMethod.GET)
