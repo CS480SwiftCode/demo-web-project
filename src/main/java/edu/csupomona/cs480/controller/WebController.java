@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.math3.random.*;
+
+import com.google.common.base.CharMatcher;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import org.jsoup.Jsoup;
 
@@ -67,6 +71,16 @@ public class WebController {
 		RandomDataGenerator randomData = new RandomDataGenerator();
 		long value = randomData.nextLong(50, 230924);
 		return String.valueOf(value);
+	}
+	
+	@RequestMapping(value = "/cs480/charmatch", method = RequestMethod.GET)
+	String charMatch()
+	{
+		String input = "This invoice has an id of 192/10/10";
+		CharMatcher charMatcher = CharMatcher.DIGIT.or(CharMatcher.is('/'));
+		String output = charMatcher.retainFrom(input);
+		
+		return "Original: " + input + "\n" + "New: " + output;
 	}
 	
 	@RequestMapping(value = "/cs480/currenttime", method = RequestMethod.GET)
